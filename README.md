@@ -1,7 +1,7 @@
 # mongoose-observables
 
 ```
-npm install npm i mongoose-observables --save
+npm install mongoose-observables --save
 ```
 
 # Getting started
