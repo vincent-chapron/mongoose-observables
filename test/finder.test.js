@@ -94,5 +94,50 @@ describe('TEST MONGOOSE OBSERVABLES', function() {
                     throw err;
                 })
         });
+
+        it('find paginate', function (done) {
+            Rx.Observable.forkJoin([
+                Rx.Observable.fromPromise(new Promise((done, reject) => {
+                    let post = new _models.Post(_data.post_data);
+                    post.save(err => {
+                        if (err) throw err;
+                        done()
+                    })
+                })),
+                Rx.Observable.fromPromise(new Promise((done, reject) => {
+                    let post = new _models.Post(_data.post_data);
+                    post.save(err => {
+                        if (err) throw err;
+                        done()
+                    })
+                })),
+                Rx.Observable.fromPromise(new Promise((done, reject) => {
+                    let post = new _models.Post(_data.post_data);
+                    post.save(err => {
+                        if (err) throw err;
+                        done()
+                    })
+                })),
+            ]).subscribe(() => {
+                finder
+                    .findPage({
+                        protocol: "http",
+                        get: host => "localhost/",
+                        originalUrl: "?nbByPage=3",
+                        query: {nbByPage: 3}
+                    }, _models.Post, {}, 'title')
+                    .subscribe(res => {
+                        expect(res.data).to.have.lengthOf(3);
+                        expect(res.max).to.be.eql(4);
+                        expect(res.next).to.be.eql("http://localhost/?nbByPage=3&offset=3");
+                        expect(res.last).to.be.eql("http://localhost/?nbByPage=3&offset=3");
+                        done();
+                    }, err => {
+                        throw err;
+                    });
+            }, err => {
+                throw err;
+            })
+        });
     });
 });
