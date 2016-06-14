@@ -1,12 +1,12 @@
 # mongoose-observables
 
-```
+```bash
 npm install mongoose-observables --save
 ```
 
 # Getting started
 
-```
+```js
 var mongoose = require('mongoose');
 
 Job = mongoose.model('Job', new mongoose.Schema({
@@ -24,7 +24,7 @@ model.Person = mongoose.model('Person', new mongoose.Schema({
 
 #### Create Job
 
-```
+```js
 var observables = require('mongoose-observables');
 
 observables.creator
@@ -36,7 +36,7 @@ observables.creator
 
 #### Create Person with existing job
 
-```
+```js
 var observables = require('mongoose-observables');
 
 observables.creator()
@@ -48,7 +48,7 @@ observables.creator()
 
 #### Create Person and job
 
-```
+```js
 var observables = require('mongoose-observables');
 
 observables.creator()
@@ -60,7 +60,7 @@ observables.creator()
 
 #### Create 3 jobs
 
-```
+```js
 var observables = require('mongoose-observables');
 var Rx = require('Rx');
 
@@ -75,7 +75,7 @@ Rx.Observable.forkJoin([job1, job2, job3]).subscribe(data => console.log(data), 
 
 #### Find Person and populate job
 
-```
+```js
 var observables = require('mongoose-observables');
 
 observables.finder
@@ -87,7 +87,7 @@ observables.finder
 
 #### Find Person with only name and populate job with only title
 
-```
+```js
 var observables = require('mongoose-observables');
 
 observables.finder
@@ -96,3 +96,4 @@ observables.finder
         throw err;
     });
 ```
+
