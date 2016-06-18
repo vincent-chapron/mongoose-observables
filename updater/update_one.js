@@ -3,7 +3,7 @@ var Rx = require('Rx');
 let findOnePromiseFn = (Schema, filter, data, options = {}) => {
     return new Promise((done, reject) => {
         Schema
-            .findOneAndUpdate(filter, data, options);
+            .findOneAndUpdate(filter, data, options)
             .exec((err, data) => {
                 if (err) {
                     return reject(err); }

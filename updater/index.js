@@ -4,4 +4,4 @@ let updater = {};
 
 module.exports = updater;
 
-updater.find_one = require('./update_one');
+updater.updateOne = require('./update_one');
