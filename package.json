@@ -1,6 +1,6 @@
 {
   "name": "mongoose-observables",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Use Rx and mongoose !",
   "main": "index.js",
   "repository": "https://github.com/vincent-chapron/mongoose-observables",
@@ -15,7 +15,7 @@
   "author": "vincent chapron",
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^4.4.20",
+    "mongoose": "^4.5.0",
     "rx": "^4.1.0"
   },
   "devDependencies": {

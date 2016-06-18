@@ -9,7 +9,7 @@ var _models = require('./models');
 var _data = require('./data');
 
 describe('TEST MONGOOSE OBSERVABLES', function() {
-    describe('FINDER', function () {
+    describe('UPDATER', function () {
         it('delete', function (done) {
             Rx.Observable.forkJoin([
                 deleter.removeAll(_models.Post),
@@ -48,7 +48,11 @@ describe('TEST MONGOOSE OBSERVABLES', function() {
                 .updateOne(_models.Post, {title: _data.post_data.title}, {title: newTitle}, {new: true, fields: {}})
                 .subscribe(data => {
                     expect(data).to.be.null;
-                    done();
+                    _models.Post.find({}, (err, data) => {
+                        if (err) throw err;
+                        expect(data[0].title).to.not.be.eql(newTitle);
+                        done();
+                    })
                 }, err => {
                     throw err;
                 });
