@@ -17,6 +17,7 @@ fromObjectProjection = (data, fields) => {
     let removeId = false;
     let _data = {};
     let i = 0;
+    let length = 0;
 
     if (typeof fields._id != "undefined" && typeof fields._id === false) {
         removeId = true;
@@ -25,6 +26,7 @@ fromObjectProjection = (data, fields) => {
 
     for (var key in fields) {
         if (fields.hasOwnProperty(key)) {
+            length++;
             if (fields[key] === false) i++;
         }
     }
@@ -36,7 +38,7 @@ fromObjectProjection = (data, fields) => {
                 if (data[key]) _data[key] = data[key];
             }
         }
-    } else if (i == fields.length) {
+    } else if (i == length) {
         if (removeId) fields._id = false;
         for (var key in data) {
             if (data.hasOwnProperty(key)) {

@@ -45,7 +45,7 @@ describe('TEST MONGOOSE OBSERVABLES', function() {
         it('Post should not be updated.', function (done) {
             var newTitle = "New update !";
             updater
-                .updateOne(_models.Post, {title: _data.post_data.title}, {title: newTitle}, {new: true, fields: {}})
+                .updateOne(_models.Post, {title: _data.post_data.title}, {title: newTitle}, {new: true, fields: {title: false}})
                 .subscribe(data => {
                     expect(data).to.be.null;
                     _models.Post.find({}, (err, data) => {
