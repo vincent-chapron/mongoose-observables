@@ -2,22 +2,85 @@ module.exports = function(data, options) {
     if (options.fields) {
         let _data = {};
         if (typeof options.fields == "string") {
-            let fields = options.fields.split(" ");
-            fields.forEach(value => {
-                if (value[0] != '-' && data[key]) {
-                    _data[value] = data[value];
-                }
-            });
+            _data = fromStringProjection(data, options.fields)
         }
         else if (typeof options.fields == "object") {
-            for (var key in options.fields) {
-                if (options.fields[key] && data[key]) {
-                    _data[key] = data[key];
-                }
-            }
+            _data = fromObjectProjection(data, options.fields)
         }
         return _data;
     } else {
         return data;
     }
 }
+
+fromObjectProjection = (data, fields) => {
+    let removeId = false;
+    let _data = {};
+    let i = 0;
+
+    if (typeof fields._id != "undefined" && typeof fields._id === false) {
+        removeId = true;
+        delete fields._id;
+    }
+
+    for (var key in fields) {
+        if (fields.hasOwnProperty(key)) {
+            if (fields[key] === false) i++;
+        }
+    }
+
+    if (i == 0) {
+        if (!removeId) fields._id = true;
+        for (var key in fields) {
+            if (fields.hasOwnProperty(key)) {
+                if (data[key]) _data[key] = data[key];
+            }
+        }
+    } else if (i == fields.length) {
+        if (removeId) fields._id = false;
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                if (fields[key] !== false) _data[key] = data[key];
+            }
+        }
+    } else {
+        throw new Error("Projection cannot have a mix of inclusion and exclusion.")
+    }
+
+    return _data;
+};
+
+fromStringProjection = (data, fields) => {
+    let _fields = fields.split(" ");
+    let removeId = false;
+    let i = _fields.indexOf("-_id");
+    let _data = {};
+
+    if (i != -1) {
+        removeId = true;
+        _fields.splice(i, 1);
+    }
+
+    i = 0;
+    _fields.forEach(value => {
+        if (value[0] == '-') i++;
+    });
+    if (i == 0) {
+        if (!removeId) _fields.push("_id");
+        _fields.forEach(value => {
+            if (data[value]) {
+                _data[value] = data[value]; }
+        });
+    } else if (i == _fields.length) {
+        if (removeId) _fields.push("-_id");
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                if (_fields.indexOf("-" + key) == -1) _data[key] = data[key];
+            }
+        }
+    } else {
+        throw new Error("Projection cannot have a mix of inclusion and exclusion.")
+    }
+
+    return _data;
+};
