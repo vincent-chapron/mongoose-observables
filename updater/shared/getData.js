@@ -19,7 +19,7 @@ fromObjectProjection = (data, fields) => {
     let i = 0;
     let length = 0;
 
-    if (typeof fields._id != "undefined" && typeof fields._id === false) {
+    if (typeof fields._id != "undefined" && fields._id === false) {
         removeId = true;
         delete fields._id;
     }

@@ -32,7 +32,7 @@ describe('TEST MONGOOSE OBSERVABLES', function() {
         it('Update post title.', function (done) {
             var newTitle = "Updated !";
             updater
-                .updateOne(_models.Post, {title: _data.post_data.title}, {title: newTitle}, {new: true, fields: {title: true}})
+                .updateOne(_models.Post, {title: _data.post_data.title}, {title: newTitle}, {new: true, fields: {_id: false, title: true}})
                 .subscribe(data => {
                     expect(data).to.not.be.null;
                     expect(data.title).to.be.eql(newTitle);
@@ -47,7 +47,6 @@ describe('TEST MONGOOSE OBSERVABLES', function() {
             updater
                 .updateOne(_models.Post, {title: _data.post_data.title}, {title: newTitle}, {new: true, fields: {title: false}})
                 .subscribe(data => {
-                    expect(data).to.be.null;
                     _models.Post.find({}, (err, data) => {
                         if (err) throw err;
                         expect(data[0].title).to.not.be.eql(newTitle);
