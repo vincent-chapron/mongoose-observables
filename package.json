@@ -1,6 +1,6 @@
 {
   "name": "mongoose-observables",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Use Rx and mongoose !",
   "main": "index.js",
   "repository": "https://github.com/vincent-chapron/mongoose-observables",

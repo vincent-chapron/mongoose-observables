@@ -25,25 +25,19 @@ fromObjectProjection = (data, fields) => {
     }
 
     for (var key in fields) {
-        if (fields.hasOwnProperty(key)) {
-            length++;
-            if (fields[key] === false) i++;
-        }
+        length++;
+        if (fields[key] === false) i++;
     }
 
     if (i == 0) {
         if (!removeId) fields._id = true;
         for (var key in fields) {
-            if (fields.hasOwnProperty(key)) {
-                if (data[key]) _data[key] = data[key];
-            }
+            if (data[key]) _data[key] = data[key];
         }
     } else if (i == length) {
         if (removeId) fields._id = false;
         for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                if (fields[key] !== false) _data[key] = data[key];
-            }
+            if (fields[key] !== false) _data[key] = data[key];
         }
     } else {
         throw new Error("Projection cannot have a mix of inclusion and exclusion.")
@@ -76,9 +70,7 @@ fromStringProjection = (data, fields) => {
     } else if (i == _fields.length) {
         if (removeId) _fields.push("-_id");
         for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                if (_fields.indexOf("-" + key) == -1) _data[key] = data[key];
-            }
+            if (_fields.indexOf("-" + key) == -1) _data[key] = data[key];
         }
     } else {
         throw new Error("Projection cannot have a mix of inclusion and exclusion.")
