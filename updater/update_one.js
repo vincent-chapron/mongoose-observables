@@ -1,4 +1,4 @@
-var Rx = require('Rx');
+var Rx = require('rx');
 
 var getData = require('./shared/getData')
 

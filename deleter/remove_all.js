@@ -1,4 +1,4 @@
-var Rx = require('Rx');
+var Rx = require('rx');
 
 var removeAllPromiseFn = (Schema) => {
     return new Promise((done, reject) => {

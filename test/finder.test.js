@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var Rx = require("Rx");
+var Rx = require("rx");
 
 var creator = require('../creator');
 var deleter = require('../deleter');
